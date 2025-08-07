@@ -6,6 +6,7 @@ Provides a high-level summary of the project's purpose, goals, and technology st
 ## Template Content
 
 ### Business Context
+- **Project Name**: `{{PROJECT_NAME}}`
 - **Project Mission**: `{{PROJECT_MISSION}}` - A one-sentence mission statement.
 - **Business Goals**: 
   - `{{GOAL_1}}`: e.g., Increase user engagement by 15%.
