@@ -14,7 +14,7 @@ By systematically capturing system, domain, task, session, and output context, F
     ```bash
     focus-ce init
     ```
-4.  **Answer the Prompts**: The interactive CLI will guide you through setting up your project name and type.
+4.  **Answer the Prompts**: The interactive CLI will guide you through setting up your project name, type, and architecture.
 5.  **Review and Customize**: The `FOCUS_CONTEXT` directory will be created with five core markdown files. Review and customize them to fit your project's specific needs.
 6.  **Configure Your AI**: Point your AI assistant to use the `FOCUS_CONTEXT` directory as its primary knowledge source.
 
@@ -27,26 +27,16 @@ The FOCUS framework has been simplified into five core documents, each designed 
 - **`04_Tasks_and_Workflow.md`**: Describes current objectives, delivery standards, and testing requirements.
 - **`05_User_and_Session.md`**: Captures user preferences and session-specific context.
 
-## File Structure Guide
-A complete breakdown of the framework's file structure can be found in `FOCUS_CONTEXT/domain/codebase/project-tree.md`. Each template includes a "Purpose" section explaining its role.
-
 ## Customization Guide
 
-1.  **Start with the Domain Layer**: The most critical files to customize first are in the `FOCUS_CONTEXT/domain/` directory.
-2.  **Fill in Placeholders**: Use a text editor or script to find and replace all `{{VARIABLE_NAME}}` placeholders.
-3.  **Adapt to Your Stack**: Pay special attention to the "Architecture Notes" and "Technology Adaptations" sections in each template to tailor them to your specific frameworks and platforms.
-4.  **Delete What You Don't Need**: The framework is modular. If a template is not relevant to your project (e.g., `serverless` notes in a monolithic app), remove it.
-
-## Architecture-Specific Setup
-
-- **Monolithic**: Focus on `module-map.md` and `dependency-graph.md` to clarify internal boundaries.
-- **Microservices**: The `integration-map.md` and `deployment-topology.md` are critical. Each service may have its own lightweight FOCUS context.
-- **Serverless**: Emphasize the `event-driven` notes and document function triggers and IAM roles carefully.
+1.  **Customize FOCUS context**: update the `FOCUS_CONTEXT` directory with your project's specific context.
+2.  **Adapt to Your Stack**: Pay special attention to the "Architecture Notes" and "Technology Adaptations" sections in each template to tailor them to your specific frameworks and platforms.
+3.  **Delete What You Don't Need**: The framework is modular. If a template is not relevant to your project (e.g., `serverless` notes in a monolithic app), remove it.
 
 ## Best Practices
 
 - **Keep it Concise**: The goal is to be token-efficient. Use bullet points and avoid long paragraphs.
-- **Automate Updates**: Use CI/CD hooks to remind developers to update context files when relevant code changes (e.g., modifying a `package.json` should trigger a check of `dependency-graph.md`).
+- **Automate Updates**: Use CI/CD hooks to remind developers to update context files when relevant code changes.
 - **Link, Don't Duplicate**: Where possible, link to existing diagrams, documentation, or configuration files rather than duplicating their content.
 
 ## Token Optimization
@@ -95,14 +85,16 @@ For a guided setup, simply run the `init` command without any options:
 focus-ce init
 ```
 
-This will launch an interactive prompt to customize the project name and type.
+This will launch an interactive prompt to customize the project name, type, and architecture.
+
+If a `FOCUS_CONTEXT` directory already exists, you will be prompted to confirm before it is overwritten.
 
 #### Command-Line Options
 
 You can also use command-line flags for a non-interactive setup:
 
 ```bash
-focus-ce init --name "My Awesome Project" --type "Web App"
+focus-ce init --name "My Awesome Project" --type "Web App" --arch "Monolithic"
 ```
 
 #### Available Commands & Options
@@ -110,6 +102,7 @@ focus-ce init --name "My Awesome Project" --type "Web App"
 *   **`init`**: Initializes the FOCUS context.
     *   `--name <name>`: Specify the project name.
     *   `--type <type>`: Specify the project type (e.g., "Web App", "API").
+    *   `--arch <arch>`: Specify the project architecture (e.g., "Monolithic", "Microservices").
     *   `--no-smart-fill`: Disable auto-population of templates.
 *   **`validate`**: Checks if the `FOCUS_CONTEXT` directory and its files are structured correctly.
 ---
