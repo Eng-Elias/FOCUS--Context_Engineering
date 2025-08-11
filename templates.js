@@ -3,31 +3,32 @@ const path = require('path');
 const { glob } = require('glob');
 const config = require('./config');
 const { logger, startSpinner } = require('./utils');
+const inquirer = require('inquirer');
+
+const architectureDetails = {
+  'Monolithic': 'A single, unified application with one codebase and deployment unit. Focus on internal module boundaries and dependencies.',
+  'Microservices': 'A collection of small, independent services that communicate over APIs. Emphasize service discovery, data consistency, and integration patterns.',
+  'Serverless': 'An event-driven architecture where code is executed in ephemeral containers. Document function triggers, IAM roles, and service integrations.',
+  'Event-Driven': 'An architecture based on the production, detection, consumption of, and reaction to events. Focus on event schemas, message brokers, and asynchronous workflows.',
+  'Other': 'A custom or hybrid architecture. Please describe its key characteristics below.'
+};
 
 async function copyTemplates(options) {
-  const { layers, projectName, smartFill } = options;
+  const { projectName, projectType, architecture, smartFill } = options;
   const targetDir = path.join(config.TARGET_DIR, config.CONTEXT_DIR_NAME);
 
-  if (await fs.pathExists(targetDir)) {
-    logger.warn('FOCUS_CONTEXT directory already exists. Overwriting...');
-    await fs.remove(targetDir);
-  }
+  await fs.remove(targetDir);
 
   const spinner = startSpinner('Creating FOCUS_CONTEXT structure...');
 
   try {
+    await fs.ensureDir(targetDir);
     const sourceDir = config.TEMPLATES_DIR;
-    const layersToCopy = layers.length > 0 ? layers : config.LAYERS;
 
-    for (const layer of layersToCopy) {
-      const layerSourcePath = path.join(sourceDir, layer);
-      const layerDestPath = path.join(targetDir, layer);
-      if (await fs.pathExists(layerSourcePath)) {
-        await fs.copy(layerSourcePath, layerDestPath);
-      } else {
-        await fs.ensureDir(layerDestPath);
-        await fs.copy(layerSourcePath, layerDestPath);
-      }
+    for (const template of config.TEMPLATES) {
+      const sourcePath = path.join(sourceDir, template);
+      const destPath = path.join(targetDir, template);
+      await fs.copy(sourcePath, destPath);
     }
 
     if (smartFill) {
@@ -36,6 +37,8 @@ async function copyTemplates(options) {
         const filePath = path.join(targetDir, file);
         let content = await fs.readFile(filePath, 'utf-8');
         content = content.replace(/\{\{PROJECT_NAME\}\}/g, projectName);
+        content = content.replace(/\{\{PROJECT_TYPE\}\}/g, projectType);
+        content = content.replace(/\{\{ARCHITECTURE_DETAILS\}\}/g, architectureDetails[architecture] || architectureDetails['Other']);
         await fs.writeFile(filePath, content);
       }
     }

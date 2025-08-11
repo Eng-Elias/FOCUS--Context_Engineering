@@ -8,20 +8,24 @@ By systematically capturing system, domain, task, session, and output context, F
 
 ## Quick Start
 
-1.  **Clone the Repository**: Download the framework to your local machine.
-2.  **Copy `FOCUS_CONTEXT` Directory**: Move the `FOCUS_CONTEXT` directory into the root of your project.
-3.  **Customize `project-overview.md`**: Fill out `FOCUS_CONTEXT/domain/project-overview.md` with your project's high-level details.
-4.  **Review and Adapt Templates**: Go through the other templates and fill in the `{{PLACEHOLDERS}}` with information specific to your project and customize them based on the project requirements, tech-stack, architecture, code standards, and any other relevant information.
-5.  **Configure Your AI**: Point your AI assistant to use the `FOCUS_CONTEXT` directory as its primary knowledge source.
+1.  **Install the CLI**: Use `npm install -g` to make the `focus-ce` command available globally.
+2.  **Navigate to Your Project**: Open your terminal in the root directory of the project you want to document.
+3.  **Run the `init` Command**:
+    ```bash
+    focus-ce init
+    ```
+4.  **Answer the Prompts**: The interactive CLI will guide you through setting up your project name and type.
+5.  **Review and Customize**: The `FOCUS_CONTEXT` directory will be created with five core markdown files. Review and customize them to fit your project's specific needs.
+6.  **Configure Your AI**: Point your AI assistant to use the `FOCUS_CONTEXT` directory as its primary knowledge source.
 
-## Framework Architecture
-The FOCUS framework is built on a five-layer architecture, allowing for hierarchical context loading and clear separation of concerns.
+## Framework Structure
+The FOCUS framework has been simplified into five core documents, each designed to capture a critical aspect of your project's context.
 
-- **L1: System Context**: Defines the AI's core behavior, rules, and constraints. This is the foundational layer.
-- **L2: Domain Context**: Captures deep knowledge about the project, including its architecture, codebase structure, standards, and domain-specific information.
-- **L3: Task Context**: Holds information about the current work, such as sprint goals, feature specifications, and acceptance criteria.
-- **L4: Interaction Context**: Manages session-specific data, including user preferences and conversation history.
-- **L5: Output Context**: Specifies the standards for deliverables, including code quality, testing, and review processes.
+- **`01_System_and_Interaction.md`**: Defines the AI's persona, interaction guidelines, and safety constraints.
+- **`02_Domain_Overview.md`**: Provides a comprehensive overview of the project, including its architecture, data models, and technical decisions.
+- **`03_Standards_and_Conventions.md`**: Outlines coding standards, API conventions, and documentation styles.
+- **`04_Tasks_and_Workflow.md`**: Describes current objectives, delivery standards, and testing requirements.
+- **`05_User_and_Session.md`**: Captures user preferences and session-specific context.
 
 ## File Structure Guide
 A complete breakdown of the framework's file structure can be found in `FOCUS_CONTEXT/domain/codebase/project-tree.md`. Each template includes a "Purpose" section explaining its role.
@@ -91,23 +95,23 @@ For a guided setup, simply run the `init` command without any options:
 focus-ce init
 ```
 
-This will launch an interactive prompt that allows you to customize the project name, architecture, and context layers.
+This will launch an interactive prompt to customize the project name and type.
 
 #### Command-Line Options
 
 You can also use command-line flags for a non-interactive setup:
 
 ```bash
-focus-ce init --name "My Awesome Project" --arch "microservices" --layers "01_system,02_domain" --smart-fill
+focus-ce init --name "My Awesome Project" --type "Web App"
 ```
 
 #### Available Commands & Options
 
 *   **`init`**: Initializes the FOCUS context.
     *   `--name <name>`: Specify the project name.
-    *   `--layers <layers>`: A comma-separated list of layers to create (e.g., `01_system,03_tasks`).
-    *   `--smart-fill`: Automatically populate placeholders like `{{PROJECT_NAME}}`.
-*   **`validate`**: Checks if the `FOCUS_CONTEXT` directory and its layers are structured correctly.
+    *   `--type <type>`: Specify the project type (e.g., "Web App", "API").
+    *   `--no-smart-fill`: Disable auto-population of templates.
+*   **`validate`**: Checks if the `FOCUS_CONTEXT` directory and its files are structured correctly.
 ---
 
 ## Contributing

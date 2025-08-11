@@ -7,7 +7,6 @@
     "focus-ce": "./bin/focus-ce"
   },
   "scripts": {
-    "test": "node test/test.js",
     "publish-npm": "npm publish"
   },
   "keywords": ["ai", "context", "codebase", "development", "framework"],

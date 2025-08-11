@@ -4,11 +4,29 @@ const path = require('path');
 const { logger, detectProjectType, validateContext } = require('./utils');
 const { copyTemplates } = require('./templates');
 const config = require('./config');
+const fs = require('fs-extra');
 const pkg = require('./package.json');
 
 // This function is the action for the 'init' command
 async function initAction(options, command) {
   logger.info('🎯 FOCUS Framework Initialization');
+
+  const targetDir = path.join(config.TARGET_DIR, config.CONTEXT_DIR_NAME);
+  if (await fs.pathExists(targetDir)) {
+    const { overwrite } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'overwrite',
+        message: `${config.CONTEXT_DIR_NAME} directory already exists. Overwrite?`,
+        default: false,
+      },
+    ]);
+
+    if (!overwrite) {
+      logger.info('Initialization cancelled.');
+      process.exit(0);
+    }
+  }
 
   let finalOptions = { ...options };
 
@@ -25,35 +43,27 @@ async function initAction(options, command) {
         default: path.basename(process.cwd()),
       },
       {
-        type: 'checkbox',
-        name: 'layers',
-        message: 'Select layers to initialize (Space to select, Enter to confirm):',
-        choices: config.LAYERS,
-        default: config.LAYERS,
+        type: 'list',
+        name: 'projectType',
+        message: 'Select the project type:',
+        choices: config.PROJECT_TYPES,
+        default: 'Web App',
       },
       {
-        type: 'confirm',
-        name: 'smartFill',
-        message: 'Auto-populate templates?',
-        default: true,
-      },
+        type: 'list',
+        name: 'architecture',
+        message: 'Select the project architecture:',
+        choices: config.ARCHITECTURES,
+        default: 'Monolithic',
+      }
     ]);
     finalOptions = { ...finalOptions, ...answers };
   }
 
-  // Process layers from string to array if needed
-  if (finalOptions.layers && typeof finalOptions.layers === 'string') {
-    finalOptions.layers = finalOptions.layers.split(',').map(s => s.trim()).filter(Boolean);
-  } else if (!finalOptions.layers) {
-      finalOptions.layers = [];
-  }
-
-  finalOptions.projectName = finalOptions.name || finalOptions.projectName;
-
-  if (finalOptions.autoDetect) {
-    finalOptions.projectType = await detectProjectType(config.TARGET_DIR);
-    logger.info(`Detected project type: ${finalOptions.projectType}`);
-  }
+  finalOptions.projectName = finalOptions.name || finalOptions.projectName || path.basename(process.cwd());
+  finalOptions.projectType = finalOptions.type || finalOptions.projectType || 'Other';
+  finalOptions.architecture = finalOptions.arch || finalOptions.architecture || 'Other';
+  finalOptions.smartFill = finalOptions.smartFill === undefined ? true : finalOptions.smartFill;
 
   const success = await copyTemplates(finalOptions);
 
@@ -61,7 +71,7 @@ async function initAction(options, command) {
     logger.success('\n✅ FOCUS context initialized successfully!');
     logger.info('\nNext steps:');
     logger.info('1. Review and customize templates in FOCUS_CONTEXT/');
-    logger.info('2. Run \'focus-ce validate\' to check completeness');
+    logger.info("2. Run 'focus-ce validate' to check completeness");
     logger.info('3. Start using FOCUS with your AI development tools');
   }
 }
@@ -77,8 +87,9 @@ async function main() {
     .command('init')
     .description('Initialize FOCUS context in the current directory.')
     .option('--name <name>', 'Specify project name')
-    .option('--layers <layers>', 'Specify layers to initialize (comma-separated)')
-    .option('--smart-fill', 'Auto-populate some fields')
+    .option('--type <type>', 'Specify project type (e.g., "Web App", "API")')
+    .option('--arch <arch>', 'Specify project architecture (e.g., "Monolithic", "Microservices")')
+    .option('--no-smart-fill', 'Disable auto-population of templates')
     .action(initAction);
 
   program

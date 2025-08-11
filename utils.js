@@ -30,26 +30,26 @@ const config = require('./config');
 async function validateContext() {
   const targetDir = path.join(config.TARGET_DIR, config.CONTEXT_DIR_NAME);
   if (!(await fs.pathExists(targetDir))) {
-    logger.error('FOCUS_CONTEXT directory not found. Run `focus-ce` first.');
+    logger.error('FOCUS_CONTEXT directory not found. Run `focus-ce init` first.');
     return false;
   }
 
   const spinner = startSpinner('Validating context structure...');
   let isValid = true;
-  let missingLayers = [];
+  let missingFiles = [];
 
-  for (const layer of config.LAYERS) {
-    const layerPath = path.join(targetDir, layer);
-    if (!(await fs.pathExists(layerPath))) {
+  for (const template of config.TEMPLATES) {
+    const filePath = path.join(targetDir, template);
+    if (!(await fs.pathExists(filePath))) {
       isValid = false;
-      missingLayers.push(layer);
+      missingFiles.push(template);
     }
   }
 
   if (isValid) {
     spinner.succeed('Context structure is valid.');
   } else {
-    spinner.fail(`Validation failed. Missing layers: ${missingLayers.join(', ')}`);
+    spinner.fail(`Validation failed. Missing files: ${missingFiles.join(', ')}`);
   }
   return isValid;
 }
