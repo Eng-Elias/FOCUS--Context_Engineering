@@ -19,19 +19,21 @@ By systematically capturing system, domain, task, session, and output context, F
 6.  **Configure Your AI**: Point your AI assistant to use the `FOCUS_CONTEXT` directory as its primary knowledge source.
 
 ## Framework Structure
-The FOCUS framework has been simplified into five core documents, each designed to capture a critical aspect of your project's context.
+The FOCUS framework consists of six core documents, each designed to capture a critical aspect of your project's context.
 
+- **`System_Prompt.md`**: Contains AI IDE rules and guidelines for maintaining context awareness and preventing hallucinations.
 - **`01_System_and_Interaction.md`**: Defines the AI's persona, interaction guidelines, and safety constraints.
 - **`02_Domain_Overview.md`**: Provides a comprehensive overview of the project, including its architecture, data models, and technical decisions.
 - **`03_Standards_and_Conventions.md`**: Outlines coding standards, API conventions, and documentation styles.
 - **`04_Tasks_and_Workflow.md`**: Describes current objectives, delivery standards, and testing requirements.
-- **`05_User_and_Session.md`**: Captures user preferences and session-specific context.
+- **`05_Session.md`**: Captures session-specific context, recent activities, and frequently accessed information.
 
 ## Customization Guide
 
-1.  **Customize FOCUS context**: update the `FOCUS_CONTEXT` directory with your project's specific context.
-2.  **Adapt to Your Stack**: Pay special attention to the "Architecture Notes" and "Technology Adaptations" sections in each template to tailor them to your specific frameworks and platforms.
-3.  **Delete What You Don't Need**: The framework is modular. If a template is not relevant to your project (e.g., `serverless` notes in a monolithic app), remove it.
+1.  **Start with System Prompt**: Configure `System_Prompt.md` in your AI IDE for context-aware development
+2.  **Customize Core Context**: Update the numbered templates (01-05) with your project's specific information
+3.  **Adapt to Your Stack**: Tailor architecture descriptions and technology-specific sections to your frameworks
+4.  **Remove Irrelevant Sections**: The framework is modular - delete sections not applicable to your project
 
 ## Best Practices
 
@@ -41,14 +43,32 @@ The FOCUS framework has been simplified into five core documents, each designed 
 
 ## Token Optimization
 
-- **Hierarchical Loading**: Instruct your AI to load Layer 1 (System) first, then Layer 2 (Domain), and so on. Task-specific context should be loaded last.
-- **Relevance Filtering**: For a specific task, load only the relevant module maps or architecture diagrams.
-- **Dynamic Updates**: The AI should be prompted to refresh its understanding of a file if the `last modified` timestamp has changed since the last interaction.
+- **Hierarchical Loading**: The `System_Prompt.md` defines the optimal loading order: System → Domain → Standards → Tasks → Session
+- **Context Refresh**: AI automatically refreshes context when inconsistencies are detected or after 30 minutes
+- **Relevance Filtering**: Load only relevant sections for specific tasks to minimize token usage
+- **Smart Fill**: CLI auto-populates templates with project details to reduce manual effort
+
+## AI IDE Integration
+
+The FOCUS framework includes specialized support for AI-powered IDEs like Windsurf and Cursor through the `System_Prompt.md` file.
+
+### Setup for AI IDEs
+
+1. **Copy the System Prompt**: Use the content from `System_Prompt.md` in your AI IDE's rules/configuration file
+2. **Enable Context Awareness**: The system prompt ensures the AI consistently reads and references FOCUS_CONTEXT files
+3. **Prevent Hallucinations**: Built-in safeguards require the AI to verify decisions against documented context
+
+### Key Benefits
+
+- **Consistent Context**: AI maintains awareness of project structure, conventions, and requirements
+- **Reduced Errors**: Anti-hallucination measures prevent assumptions and enforce documentation-based decisions
+- **Session Continuity**: Automatic context refresh and session state management
+- **Quality Assurance**: Built-in validation checks against documented standards
 
 ## Integration Examples
 
-- **IDE Integration**: Use the `ide-rules.md` to configure how your AI interacts with your development environment, such as automatically following linter rules.
-- **CI/CD Integration**: Use scripts in your CI pipeline to validate that context files (e.g., `troubleshooting.md`) are updated as part of the incident response process.
+- **AI IDE Integration**: Use `System_Prompt.md` to configure AI assistants in Windsurf, Cursor, or similar tools for context-aware development
+- **CI/CD Integration**: Use scripts in your CI pipeline to validate that context files are updated as part of the development process
 
 ## Maintenance Guide
 
