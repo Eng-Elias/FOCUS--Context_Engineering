@@ -12,8 +12,7 @@ const config = {
     '03_Standards_and_Conventions.md',
     '04_Tasks_and_Workflow.md',
     '05_Session.md',
-    'System_Prompt.md',
-  ]
+  ],
 };
 
 module.exports = config;

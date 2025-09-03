@@ -103,8 +103,12 @@ async function main() {
   await program.parseAsync(process.argv);
 }
 
-main().catch(err => {
-    logger.error('An unexpected error occurred:');
-    console.error(err);
-    process.exit(1);
-});
+if (require.main === module) {
+  main().catch(err => {
+      logger.error('An unexpected error occurred:');
+      console.error(err);
+      process.exit(1);
+  });
+}
+
+module.exports = { initAction };

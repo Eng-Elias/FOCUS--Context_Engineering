@@ -25,7 +25,7 @@ async function copyTemplates(options) {
     await fs.ensureDir(targetDir);
     const sourceDir = config.TEMPLATES_DIR;
 
-    for (const template of config.TEMPLATES) {
+    for (const template of [...config.TEMPLATES, 'System_Prompt.md']) {
       const sourcePath = path.join(sourceDir, template);
       const destPath = path.join(targetDir, template);
       await fs.copy(sourcePath, destPath);
