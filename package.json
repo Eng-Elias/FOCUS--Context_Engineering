@@ -3,15 +3,23 @@
   "version": "1.0.0",
   "description": "Framework for Optimized Codebase Understanding & Synthesis",
   "main": "cli.js",
+  "scripts": {
+    "start": "node cli.js",
+    "test": "jest",
+    "publish-npm": "npm publish"
+  },
   "bin": {
     "focus-ce": "./bin/focus-ce"
   },
-  "scripts": {
-    "publish-npm": "npm publish"
-  },
-  "keywords": ["ai", "context", "codebase", "development", "framework"],
-  "author": "Your Name",
-  "license": "MIT",
+  "keywords": [
+    "ai",
+    "context",
+    "codebase",
+    "development",
+    "framework"
+  ],
+  "author": "Eng-Elias",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^12.1.0",
@@ -19,5 +27,8 @@
     "glob": "^10.4.2",
     "inquirer": "^8.2.6",
     "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "jest": "^30.1.3"
   }
 }
