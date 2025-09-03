@@ -11,7 +11,8 @@ const config = {
     '02_Domain_Overview.md',
     '03_Standards_and_Conventions.md',
     '04_Tasks_and_Workflow.md',
-    '05_User_and_Session.md'
+    '05_Session.md',
+    'System_Prompt.md',
   ]
 };
 
