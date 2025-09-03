@@ -1,14 +1,16 @@
-# FOCUS Framework
-**Framework for Optimized Codebase Understanding & Synthesis**
+# FOCUS: Framework for Optimized Codebase Understanding & Synthesis
 
-## Overview
-FOCUS is a modular context engineering framework designed to enhance the performance of AI assistants in software development. It provides a structured set of templates to build a comprehensive and token-efficient knowledge base for any codebase.
+FOCUS is a modular context engineering framework and CLI designed to enhance the performance of AI assistants in software development. It provides a structured set of templates to build a comprehensive and token-efficient knowledge base for any codebase.
 
 By systematically capturing system, domain, task, session, and output context, FOCUS ensures that AI assistants have the necessary information to understand complex projects, follow best practices, and generate high-quality, relevant code.
 
+## Statement of Need
+
+Large Language Models (LLMs) are increasingly integrated into software development workflows. However, their effectiveness is often hampered by a lack of persistent context. The FOCUS Framework solves this by creating a standardized, machine-readable, and human-curated context that can be easily consumed by AI tools, leading to higher-quality code generation.
+
 ## Quick Start
 
-1.  **Install the CLI**: Use `npm install -g` to make the `focus-ce` command available globally.
+1.  **Install the CLI**: Use `npm install -g focus-ce` to make the `focus-ce` command available globally.
 2.  **Navigate to Your Project**: Open your terminal in the root directory of the project you want to document.
 3.  **Run the `init` Command**:
     ```bash
@@ -81,15 +83,18 @@ The FOCUS Framework includes a powerful command-line tool, `focus-ce`, to help y
 
 ### Installation
 
-To use the CLI, you need to have Node.js and npm installed. Clone the repository and install the dependencies:
+To use the `focus-ce` CLI, you need to have Node.js and npm installed. You can install the package globally from npm:
 
 ```bash
-npm install
+npm install -g focus-ce
 ```
 
-To make the `focus-ce` command available globally, you can link the package:
+Alternatively, for development, you can clone the repository and link the package locally:
 
 ```bash
+git clone https://github.com/Eng-Elias/FOCUS--Context_Engineering.git
+cd FOCUS--Context_Engineering
+npm install
 npm link
 ```
 
@@ -127,20 +132,18 @@ focus-ce init --name "My Awesome Project" --type "Web App" --arch "Monolithic"
 *   **`validate`**: Checks if the `FOCUS_CONTEXT` directory and its files are structured correctly.
 ---
 
+#### `validate`
+
+Checks if the `FOCUS_CONTEXT` directory and its files are structured correctly.
+
+```bash
+focus-ce validate
+```
+
 ## Contributing
-Contributions to the FOCUS framework are welcome. Please open a pull request with any improvements to the templates or documentation.
+
+Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 
 ## License
 
-This application is open-source and is released under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. See the [LICENSE](LICENSE) file for details.
-
-Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
-
-This work is licensed under a
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
-
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
-
-[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
-[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+This project is licensed under the GNU Affero General Public License v3.0. See the [LICENSE](LICENSE) file for details.
