@@ -1,7 +1,7 @@
 const { Command } = require('commander');
 const inquirer = require('inquirer');
 const path = require('path');
-const { logger, validateContext } = require('./utils/utils');
+const { logger, validateContext } = require('./utils/cli_utils');
 const { copyTemplates } = require('./utils/templates');
 const config = require('./config');
 const fs = require('fs-extra');

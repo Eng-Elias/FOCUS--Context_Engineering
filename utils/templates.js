@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { glob } = require('glob');
 const config = require('../config');
-const { logger, startSpinner } = require('./utils');
+const { logger, startSpinner } = require('./cli_utils');
 const inquirer = require('inquirer');
 
 const architectureDetails = {
