@@ -16,7 +16,6 @@ jest.mock('../utils', () => ({
     success: jest.fn(),
     error: jest.fn(),
   },
-  detectProjectType: jest.fn(),
   validateContext: jest.fn(),
 }));
 

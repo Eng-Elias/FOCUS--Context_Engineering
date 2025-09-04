@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { glob } = require('glob');
-const config = require('./config');
+const config = require('../config');
 const { logger, startSpinner } = require('./utils');
 const inquirer = require('inquirer');
 

@@ -1,8 +1,8 @@
 const { Command } = require('commander');
 const inquirer = require('inquirer');
 const path = require('path');
-const { logger, detectProjectType, validateContext } = require('./utils');
-const { copyTemplates } = require('./templates');
+const { logger, validateContext } = require('./utils/utils');
+const { copyTemplates } = require('./utils/templates');
 const config = require('./config');
 const fs = require('fs-extra');
 const pkg = require('./package.json');

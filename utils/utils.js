@@ -17,15 +17,7 @@ const startSpinner = (text) => {
   return spinner;
 };
 
-const detectProjectType = async (targetDir) => {
-  if (await fs.pathExists(path.join(targetDir, 'package.json'))) return 'Node.js';
-  if (await fs.pathExists(path.join(targetDir, 'requirements.txt'))) return 'Python';
-  if (await fs.pathExists(path.join(targetDir, 'pom.xml'))) return 'Java';
-  if (await fs.pathExists(path.join(targetDir, 'Dockerfile'))) return 'Containerized';
-  return 'Unknown';
-};
-
-const config = require('./config');
+const config = require('../config');
 
 async function validateContext() {
   const targetDir = path.join(config.TARGET_DIR, config.CONTEXT_DIR_NAME);
@@ -58,5 +50,4 @@ module.exports = {
   validateContext,
   logger,
   startSpinner,
-  detectProjectType,
 };
